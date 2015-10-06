@@ -1,0 +1,17 @@
+<ion-view view-title="员工绑定">
+	<ion-content class='lightgray-bg padding'>
+		<div class="list ">
+		 
+			<label class="item item-input">
+				<span class="input-label">姓名</span>
+				<input type="text" placeholder="请输入姓名" ng-model='theUser.childRealName'maxlength="5">
+			</label>		
+ 			<label class="item item-input">
+				<span class="input-label">授权码</span>
+				<input type="text" placeholder="请输入授权码" ng-model='theUser.activationKey' maxlength="10">  
+			</label>
+		</div>
+ 		<button class="button button-block button-ok" ng-click='activateEmployee()'>确认</button>		
+ 		<button class="button button-block button-assertive">取消</button>
+	</ion-content>
+</ion-view>

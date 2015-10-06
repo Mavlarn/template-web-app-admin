@@ -1,0 +1,52 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
+            <li class="nav-header">
+                
+                <div class="dropdown profile-element" dropdown>
+                    <span class="block m-t-xs" style="color: white;">
+                        <h2 class="font-bold">DataTalk BI</h2>
+                     </span>
+                     <span class="text-muted text-xs block"> CRM 营销分析平台 </span>
+                </div>
+                
+                <div class="logo-element">
+                    BI+
+                </div>
+
+            </li>
+            <li ng-class="{active: $state.includes('dashboard')}">
+                <a ui-sref="dashboard">
+                    <i class="glyphicon glyphicon-tasks"></i>
+                    <span class="nav-label">Dashboards</span>
+                </a>
+            </li>
+
+            <li ng-class="{active: $state.includes('crm')}">
+                <a><i class="glyphicon glyphicon-th-large"></i> <span class="nav-label">CRM</span><span class="fa fa-arrow"></span></a>
+                <ul class="nav nav-second-level" ng-class="{in: $state.includes('forms')}">
+                    <li ui-sref-active="active"><a ui-sref="crm.customer"><span class="glyphicon glyphicon-user"></span>&nbsp; 用户查询</a></li>
+
+                </ul>
+            </li>
+            <li ng-class="{active: $state.includes('user')}">
+                <a>
+                    <i class="glyphicon glyphicon-user"></i>
+                    <span class="nav-label">账户管理 </span>
+                </a>
+                <ul class="nav nav-second-level" ng-class="{in: $state.includes('user')}">
+                    <li ui-sref-active="active"><a ui-sref="user.list"><span class="glyphicon glyphicon-list"></span>&nbsp; 账户列表</a></li>
+                    <li ui-sref-active="active"><a ui-sref="user.form"><span class="glyphicon glyphicon-user"></span>&nbsp; 创建账户</a></li>
+                </ul>
+            </li>
+            <li ng-class="{active: $state.includes('admin')}">
+                <a><i class="glyphicon glyphicon-briefcase"></i><span>系统管理</span><span class="fa fa-arraw"></span></a>
+                <ul class="nav nav-second-level" ng-class="{in: $state.includes('admin')}">
+<!--                    <li ui-sref-active="active" ><a ui-sref="admin.operationLog">操作日志</a></li>-->
+                    <li ui-sref-active="active" ><a ui-sref="admin.customerAttribute"><span class="glyphicon glyphicon-magnet"></span>&nbsp; 用户参数设置</a></li>
+                </ul>
+            </li>
+        </ul>
+
+    </div>
+</nav>

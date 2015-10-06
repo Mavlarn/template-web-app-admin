@@ -1,0 +1,30 @@
+<div>
+    <div class="middle-box text-center loginscreen animated fadeInDown" style='margin-top: -250px;width: 400px;margin-left: -200px;'>
+        <h2 class="text-center m-t m-b font-noraml text-success">数说天下</h2>
+
+        <div style='padding: 40px 50px!important;border-radius: 10px; 
+          background-color: rgba(255, 255, 255, 0.5);color:white'>
+            <form>
+                <h2 class="text-center m-t m-b font-noraml text-success">登录您的账户</h2>
+                <div class="form-group">
+                    <input type="text" class="form-control text-muted" id="username" placeholder="请输入用户名" ng-model="username">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control text-muted" id="password" placeholder="请输入密码" ng-model="password">
+                </div>
+                <button type="submit" class="btn btn-info block full-width m-b" ng-click="login()">
+                    登录
+                    <i class="fa fa-arrow-circle-right "></i></button>
+            </form>
+        </div>
+        <div class="alert alert-danger m-t" ng-show="authenticationError">
+            <strong>登录失败!</strong>
+        </div>
+        <p class="m-t" style="color: white;">Copyright©2013 - 2015. 数说天下信息科技有限公司</p>
+    </div>
+</div>
+<div class="backstretch" style="left: 0px; top: 0px; overflow: hidden; margin: 0px; padding: 0px; height: 100%; width: 100%;
+  position: fixed;">
+    <img src="/img/imgBg1.jpg" class="deleteable" style="position: absolute; margin: 0px; padding: 0px; border: none;
+  width: 100%; height: 100%; max-width: none;   left: 0px; top: 0px;">
+</div>

@@ -1,0 +1,18 @@
+<ion-view view-title="客户绑定">
+	<ion-content class='lightgray-bg padding'>
+		<div class="list ">
+		 
+			<label class="item item-input">
+				<span class="input-label">姓名</span>
+				<input type="text" placeholder="请输入您的姓名" ng-model='theUser.realName' >
+			</label>
+ 			<label class="item item-input">
+				<span class="input-label">授权码</span>
+				<input type="text" placeholder="请输入授权码" ng-model='theUser.activationKey' maxlength="10">
+			</label>
+		</div>
+
+ 		<button class="button button-block button-ok" ng-click='activateCustomer()'>确认</button>		
+ 		<button class="button button-block button-assertive">取消</button>
+	</ion-content>
+</ion-view>

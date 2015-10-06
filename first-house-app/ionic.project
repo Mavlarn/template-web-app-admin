@@ -1,0 +1,11 @@
+{
+  "name": "myApp",
+  "app_id": "",
+  "gulpStartupTasks": ["serve"],
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "http://localhost:8080/api"
+    }
+  ]
+}

@@ -1,0 +1,170 @@
+<div>
+
+    <h2>OperationLog</h2>
+
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveOperationLogModal" ng-click="clear()">
+        <span class="glyphicon glyphicon-flash"></span> <span>Create a new OperationLog</span>
+    </button>
+    <div class="modal fade" id="saveOperationLogModal" tabindex="-1" role="dialog" aria-labelledby="myOperationLogLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="editForm" role="form" novalidate ng-submit="create()">
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" id="myOperationLogLabel">Create or edit a OperationLog</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>ID</label>
+                            <input type="text" class="form-control" name="id"
+                                   ng-model="operationLog.id" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label>OperatorId</label>
+                            <input type="number" class="form-control" name="operatorId"
+                                   ng-model="operationLog.operatorId" required>
+
+                            <div ng-show="editForm.operatorId.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.operatorId.$error.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.operatorId.$error.number">
+                                    This field should be a number.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>OperatorName</label>
+                            <input type="text" class="form-control" name="operatorName"
+                                   ng-model="operationLog.operatorName" required>
+
+                            <div ng-show="editForm.operatorName.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.operatorName.$error.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Operation</label>
+                            <input type="text" class="form-control" name="operation"
+                                   ng-model="operationLog.operation" required>
+
+                            <div ng-show="editForm.operation.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.operation.$error.required">
+                                    This field is required.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>CreatedTime</label>
+                            <input type="datetime-local" class="form-control" name="createdTime"
+                                   ng-model="operationLog.createdTime" ng-model-options="{timezone: 'UTC'}" required>
+
+                            <div ng-show="editForm.createdTime.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.createdTime.$error.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.createdTime.$error.datetimelocal">
+                                    This field should be a date and time.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Result</label>
+                            <input type="text" class="form-control" name="result"
+                                   ng-model="operationLog.result">
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="editForm.$invalid" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteOperationLogConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(operationLog.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to delete this OperationLog?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span>Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>OperatorId</th>
+                    <th>OperatorName</th>
+                    <th>Operation</th>
+                    <th>CreatedTime</th>
+                    <th>Result</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="operationLog in operationLogs">
+                    <td><a ui-sref="operationLogDetail({id:operationLog.id})">{{operationLog.id}}</a></td>
+                    <td>{{operationLog.operatorId}}</td>
+                    <td>{{operationLog.operatorName}}</td>
+                    <td>{{operationLog.operation}}</td>
+                    <td>{{operationLog.createdTime}}</td>
+                    <td>{{operationLog.result}}</td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="operationLogDetail({id:operationLog.id})"
+                                class="btn btn-info">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span> View</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="update(operationLog.id)"
+                                class="btn btn-primary">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(operationLog.id)"
+                                class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

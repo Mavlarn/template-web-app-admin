@@ -1,0 +1,23 @@
+{
+  "name": "firstHouseApp",
+  "testPath": "test/spec",
+  "dependencies": {
+    "angular-resource": "1.4.3",
+    "angular-local-storage": "0.2.2",
+    "angular-cache-buster": "0.4.3",
+    "alertify": "~0.3.10",
+    "angular-http-auth": "~1.2.2",
+    "ngAnimate-animate.css": "~0.1.1",
+    "lodash": "3.10.0",
+    "angular-lodash": "~0.1.2",
+    "ng-alertify": "~0.6.0",
+    "angular-moment": "~0.10.1",
+    "moment": "~2.10.3",
+    "font-awesome": "~4.4.0",
+    "angular-locale_zh-cn": "*"
+  },
+  "private": "true",
+  "devDependencies": {
+    "ionic": "driftyco/ionic-bower#1.1.0"
+  }
+}

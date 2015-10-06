@@ -1,0 +1,7 @@
+column_name;attr_name;attr_desc
+boolAttr1;是否实名认证;用户是否已经通过实名认证
+boolAttr2;是否充值;用户是否已经给账户冲过值
+boolAttr3;是否有红包;用户账户内是否有在有效期内的红包
+intAttr1;年龄;用户年龄
+dateAttr1;注册日期;用户注册日期
+dateAttr2;上次投资日期;用户最后一次投资的日期(空代表没有投资过)

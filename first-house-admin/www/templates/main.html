@@ -1,0 +1,25 @@
+<div ng-cloak>
+    <div class="row">
+        <div class="col-md-4">
+            <span class="img-responsive img-rounded"></span>
+        </div>
+        <div class="col-md-8">
+            <h1>DataTalk BI</h1>
+            <p class="lead">CRM 营销分析平台</p>
+            <div ng-switch="isAuthenticated()">
+                <div class="alert alert-success" ng-switch-when="true">
+                    角色 "{{account.roles}}".
+                </div>
+
+                <div class="alert alert-warning" ng-switch-when="false">
+                    <a href="#/login">登陆</a>
+                </div>
+
+                <div class="alert alert-warning" ng-switch-when="false">
+                    需要账号? <a ui-sref="register">注册</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

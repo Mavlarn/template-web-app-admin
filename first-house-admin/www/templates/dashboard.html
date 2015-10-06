@@ -1,0 +1,79 @@
+
+<div ng-cloak class="wrapper-content padding">
+	<div class="row">
+		<div class="col-md-12 text-success">
+			尊敬的{{account.name}}，{{Get_Greetings()}}好，欢迎登录CRM 营销分析系统! 当前时间：{{currentTime}}
+		</div>
+	</div>
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="widget style1 blue-bg">
+                    <div class="row hand" ui-sref="user.listTeacher">
+                        <div class="col-sm-4 text-center">
+                            <i class="fa fa-user  fa-4x"></i>
+                        </div>
+                        <div class="col-sm-8 text-right">
+                            <span> 活动个数 </span>
+                            <h2 class="font-bold">{{::chart.count1}}</h2>
+                        </div>
+                    </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="widget style1 navy-bg">
+                <div class="row hand" ui-sref="user.listChild">
+                    <div class="col-sm-4">
+                        <i class="fa fa-users fa-4x"></i>
+                    </div>
+                    <div class="col-sm-8 text-right">
+                        <span> 用户个数 </span>
+                        <h2 class="font-bold">{{::chart.count2}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="widget style1 red-bg">
+                <div class="row hand" ui-sref="user.listFamily">
+                    <div class="col-sm-4">
+                        <i class="fa fa-heart fa-4x"></i>
+                    </div>
+                    <div class="col-sm-8 text-right">
+                        <span> 活动个数  </span>
+                        <h2 class="font-bold">{{::chart.count1}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="widget style1 yellow-bg">
+                <div class="row hand">
+                    <div class="col-sm-4">
+                        <i class="fa fa-eye fa-4x"></i>
+                    </div>
+                    <div class="col-sm-8 text-right">
+                        <span> 用户个数 </span>
+                        <h2 class="font-bold">{{::chart.count2}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins page-heading">
+                <div class="ibox-title">
+                    <h5>发短信个数(转化率)</h5>
+                </div>
+                <div class="ibox-content">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <nvd3 options="chart.options" data="chart.data"></nvd3>
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+</div>

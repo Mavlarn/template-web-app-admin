@@ -1,0 +1,28 @@
+<ion-view view-title="个人设置">
+	<ion-content>
+		<div class="list card" ng-if='!gettingUserInfo'>
+			<div class="item item-avatar">
+				<img ng-src="{{storage_server + userInfo.headImgUrl + thumbSuffixSquare}}" onerror="this.src='../img/defaultHead.jpg'">
+				<h2>{{userInfo.realName}} - {{userInfo.name}}</h2>
+				<p> 
+				</p>
+			</div> 
+			 <a class="item item-icon-left" href="#">
+			    <i class="icon ion-location" ng-if='userInfo.country||userInfo.province||userInfo.province'></i>
+			    {{userInfo.country}} {{userInfo.province}} {{userInfo.city}} 
+			  </a>
+			 <a class="item item-icon-left" href="#">
+			    <i class="icon ion-android-calendar" ng-if='userInfo.bindDate'></i>
+			  	  绑定日期: {{userInfo.bindDate | date:'yyyy年MM月dd日'}} 
+			  </a>
+		    <a class="item item-thumbnail-right " href="#" ng-if='userInfo.idImgUrl'>
+		      <img ng-src="{{storage_server + userInfo.idImgUrl + thumbSuffixSquare}}">
+		      <h2>个人照片</h2> 
+		    </a>			
+			<div class="item item-body hide"  ng-if='userInfo.idImgUrl'>
+				<img class="full-image" ng-if='userInfo.idImgUrl' ng-src="{{storage_server + userInfo.idImgUrl + thumbSuffixSquare}}">
+			</div>
+
+		</div>
+	</ion-content>
+</ion-view>

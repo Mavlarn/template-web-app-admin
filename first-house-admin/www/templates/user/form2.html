@@ -1,0 +1,139 @@
+<div class="inmodal">
+    <div class="modal-header padding"> 
+    	<button class="btn btn-primary btn-circle btn-outline close" ng-click="closeModal()"><i class="fa fa-times"></i>
+                            </button>        
+        <h6 class="modal-title">{{{true:'新建',false:'编辑'}[isNew]}}园长</h6>
+ 
+
+    </div>
+    <div class="modal-body">
+    	<form class="form-horizontal  " name="formManager"  novalidate>
+    		<div class="row">
+    			<div class="col-sm-8">
+					<div class="form-group" ng-class="{ 'has-error' : formManager.loginName.$error.required && submitted}">
+						<label class="col-sm-4 control-label"><span class="text-navy">*</span> 登录名称 </label>
+						<div class="col-sm-8">			 
+							<div class="input-group">
+								<span class="input-group-addon gray-bg text-muted">英</span>		
+								<i class="fa fa-spinner fa-spin input-loading" ng-show="loading"></i>							 
+							    <input type="text" name='loginName' ng-model='theManager.login' ng-init='theManager.login=""' 
+							    	required class="form-control" placeholder="请输入用户昵称" ng-readonly="!isNew" maxlength="15"/>		
+								<span class="help-block m-b-none" ng-show="formManager.loginName.$error.required && submitted">请输入用户登录名称.</span>						    					
+							</div> 
+						</div> 			 
+		
+		            </div>   		
+		 			<div class="form-group" ng-if='isNew' ng-class="{ 'has-error' : formManager.password.$error.required && submitted}">
+						<label class="col-sm-4 control-label"><span class="text-navy">*</span> 登录密码 </label>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<span class="input-group-addon gray-bg text-muted"><i class="fa fa-key"></i></span>	
+								<i class="fa fa-spinner fa-spin input-loading" ng-show="loading"></i>			 
+							    <input type="password"  name='password' required ng-model='theManager.password' 
+							    	ng-minlength="6" ng-maxlength="20" ng-init='theManager.password=""' 
+							    	class="form-control" placeholder="请输入密码"/>
+							</div>	
+							<span class="help-block m-b-none" ng-show="formManager.password.$error.required && submitted">请设置密码</span>	
+							<span class="help-block m-b-none text-info" ng-show="(formManager.password.$error.minlength || formManager.password.$error.maxlength) && submitted">密码长度在6~20位之间</span>	
+							<span class="help-block m-b-none text-info" ng-init='formManager.passwordNotMatch = false' ng-show="formManager.passwordNotMatch && submitted">两次输入的密码不一致</span>	
+		 				</div> 			  
+		            </div>   		
+		 			<div class="form-group" ng-if='isNew' ng-class="{ 'has-error' : formManager.password2.$error.required && submitted}">
+						<label class="col-sm-4 control-label"><span class="text-navy">*</span> 密码确认 </label>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<span class="input-group-addon gray-bg text-muted"><i class="fa fa-key"></i></span>		
+								<i class="fa fa-spinner fa-spin input-loading" ng-show="loading"></i>											 
+							    <input name='password2' type="password" ng-model='data.password2' ng-init='formManager.password2=""' required   class="form-control" placeholder="请再次输入密码"/>						
+		 					</div>		
+							<span class="help-block m-b-none" ng-show="formManager.password2.$error.required && submitted">请输入确认密码</span>								
+						</div> 			  
+		            </div>   		
+		 			<div class="form-group" ng-class="{ 'has-error' : formManager.realName.$error.required && submitted}">
+						<label class="col-sm-4 control-label"><span class="text-navy">*</span> 真实姓名 </label>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<span class="input-group-addon gray-bg text-muted">真</span>									 
+								<i class="fa fa-spinner fa-spin input-loading" ng-show="loading"></i>	
+							    <input type="text" name='realName' ng-model='theManager.realName' required ng-init='theManager.realName=""'  class="form-control" placeholder="请输入园长真实姓名"/>						
+							</div>
+		 					<span class="help-block m-b-none" ng-show="formManager.realName.$error.required && submitted">请输入园长真实姓名</span>
+						</div> 			  
+		            </div>   		
+		 			<div class="form-group" ng-class="{ 'has-error' : formManager.name.$error.required && submitted}">
+						<label class="col-sm-4 control-label"><span class="text-navy">*</span> 园长昵称 </label>
+						<div class="col-sm-8">
+							<div class="input-group">
+								<span class="input-group-addon gray-bg text-muted">昵</span>									 
+								<i class="fa fa-spinner fa-spin input-loading" ng-show="loading"></i>	
+							    <input type="text" name='name' ng-model='theManager.name' required ng-init='theManager.name=""'  class="form-control" placeholder="请输入园长昵称"/>						
+							</div>
+		 					<span class="help-block m-b-none" ng-show="formManager.name.$error.required && submitted">请输入园长昵称</span>
+						</div> 			  
+		            </div>   		
+		 			<div class="form-group" ng-class="{ 'has-error' : formManager.notSetClass && submitted}">
+						<label class="col-sm-4 control-label"><span class="text-navy">*</span> 权限控制 </label>
+						<div class="col-sm-8">	
+							<ui-select multiple close-on-select='false'  ng-model="theManager.schools"  
+							 	name="schools"  ng-disabled="disabled" close-on-select="false">
+							    <ui-select-match placeholder="请选择学校..." >
+									{{$item.name}}
+								</ui-select-match>
+							        <ui-select-choices repeat="school in schools track by school.id"> 
+							        	{{school.name}}
+		    						</ui-select-choices>
+							</ui-select>
+		 				</div> 			  
+		            </div>    
+    			</div>
+    			<div class="col-sm-4"> 
+                        <div ng-if="!theManager.idImgUrl" nv-file-drop="" class='file m-b-xxs' uploader="uploaderID" ng-show="uploaderID.queue.length == 0">
+                            <div nv-file-over="" uploader="uploaderID" over-class="nv-file-over" 
+                            	class="icon  my-drop-zone text-center" style="height: 150px;">
+                            	<i class="img-responsive fa fa-image"></i><br> 拖拽图片到这里
+                          	</div>
+                        </div>
+                        <div class='image-preview'  ng-if="theManager.idImgUrl" ng-hide='!isNew && uploaderID.queue.length!=0'> 
+								<img class="img-responsive" ng-src="{{storage_server + theManager.idImgUrl + thumbSuffix}}" onerror="this.src='../img/errorImage.png'"> 
+						</div> 
+                        <div ng-repeat="item in uploaderID.queue">
+                            <div class="img-responsive image-preview" ng-thumb="{ file: item._file, width: 100 } "></div>
+                            <div class="file-name ">                                  
+                                <button type="button" class="btn btn-danger btn-sm" ng-click="item.remove() ">
+                                    <i class="fa fa-exchange"></i> 更换
+                                </button>
+                            </div>
+                        </div> 
+                      	<div>
+                            <button type="button " class="btn btn-info btn-sm m-t-xs" style=' position: relative;' 
+                            	ng-disabled='uploaderID.queue.length!=0'>
+		                        <i ng-show='uploaderID.queue.length==0' class="fa fa-file-text-o"></i>
+		                        <i ng-show='uploaderID.queue.length!=0' class="fa fa-ban"></i>
+		                        	选择文件
+		                        	<input ng-if='uploaderID.queue.length==0' type="file" nv-file-select="" uploader="uploaderID"  class='file-uploader'>
+		                    </button>
+		                    <br>
+		                    <button type="button " class="btn btn-success btn-sm m-t-xs" ng-click="uploadIdImg()" ng-hide='isNew' 	
+		                    	ng-disabled='uploaderID.queue[0].isUploaded == true || uploaderID.queue[0].isUploading == true'>
+		                        <i ng-show='uploaderID.queue[0].isUploading != true' class="fa fa-upload"></i>
+		                        <i ng-show='uploaderID.queue[0].isUploading == true' class="fa fa-refresh fa-spin"></i>
+		                        	{{{true:'上传'}[uploaderID.queue[0].isUploaded != true && uploaderID.queue[0].isUploading != true]}}
+		                        	{{{true:'正在上传...'}[uploaderID.queue[0].isUploading == true]}}
+		                        	{{{true:'已上传'}[uploaderID.queue[0].isUploaded == true]}}
+		                    </button>								
+						</div>  
+				</div>   	 
+    		</div>  
+    	</form> 		
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" ng-click="closeModal()"><i class="fa fa-remove"></i> 取消</button> 
+        <button type="button" class="btn btn-success " ng-click="saveManager()" ng-disabled="form-manager.$invalid||saving">
+        	<i ng-show='!saving' class="fa fa-check"></i> 
+        	<i ng-show='saving' class="fa fa-refresh fa-spin"></i>
+			{{{true:'保存'}[!saving]}}
+			{{{true:'正在保存...'}[saving]}}   
+        </button> 
+      </div>
+</div>
+

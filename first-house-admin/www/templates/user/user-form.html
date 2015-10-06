@@ -1,0 +1,82 @@
+
+<div class="ibox float-e-margins">
+    <div class="ibox-title">
+        <h4 ng-if="isNew" class="modal-title">添加账号</h4>
+        <h4 ng-if="!isNew" class="modal-title">修改账号</h4>
+    </div>
+    <div class="ibox-content">
+        <form class="form-horizontal ng-pristine ng-valid">
+        
+        
+
+            <div class="form-group" ng-class="{'state-error': accountForm.userId.$dirty && accountForm.userId.$invalid}">
+                <label class="col-sm-2 control-label">用户ID</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="userId" ng-model="data.user.login" ng-readonly="!isNew" required ng-minlength=4 ng-maxlength=20>
+                    <em for="userId" class="invalid" ng-show="accountForm.userId.$dirty && accountForm.userId.$invalid">User ID is required and it's length is between 4~20.</em>
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'state-error': accountForm.userName.$dirty && accountForm.userName.$invalid}">
+                <label class="col-sm-2 control-label">昵称</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="userName" ng-model="data.user.name" placeholder="User Name" required ng-minlength=4 ng-maxlength=20>
+                    <em for="userName" class="invalid" ng-show="accountForm.userName.$dirty && accountForm.userName.$invalid">User name is required and it's length is between 4~20.</em>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">姓名</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="realName" ng-model="data.user.realName" placeholder="User Name">
+                </div>
+            </div>
+            <div class="form-group" ng-class="{'state-error': accountForm.email.$dirty && accountForm.email.$invalid}">
+                <label class="col-sm-2 control-label">EMail</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" name="email" ng-model="data.user.email" placeholder="Email">
+                </div>
+            </div>
+            <div class="form-group" ng-show="!isNew">
+                <label class="css-check col-sm-offset-1 col-sm-2 control-label" style="text-align: left;">修改密码
+                    <input type="checkbox" class="css-check" value="no" ng-click="changepw = !changepw">
+                    <span class="css-check-target"></span>
+                </label>
+            </div>
+            <div class="form-group" ng-if="isNew || changepw" ng-class="{'state-error': accountForm.password.$dirty && accountForm.password.$invalid}">
+                <label class="col-sm-2 control-label">密码</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" name="password" ng-model="data.user.password" placeholder="Password" required ng-minlength=4 ng-maxlength=20>
+                    <em for="password" class="invalid" ng-show="accountForm.password.$dirty && accountForm.password.$invalid">Password is required and it's length is between 4~20.</em>
+                </div>
+            </div>
+            <div class="form-group" ng-if="isNew || changepw" ng-class="{'state-error': accountForm.pwAgain.$dirty && data.user.password != data.user.password2}">
+                <label class="col-sm-2 control-label">再次输入</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" name="pwAgain" ng-model="data.user.password2" placeholder="Password Again">
+                    <em for="pwAgain" class="invalid" ng-show="accountForm.pwAgain.$dirty && data.user.password != data.user.password2">Please confirm your password.</em>
+                </div>
+            </div>
+
+            <div class="form-group" ng-class="{'state-error': data.user.roles.length == 0}">
+                <label class="col-sm-2 control-label">角色</label>
+                <div class="col-sm-10">
+                    <ui-select multiple ng-model="data.user.roles" theme="bootstrap" name="roles" required>
+                        <ui-select-match placeholder="Select roles...">{{shorName($item)}}</ui-select-match>
+                        <ui-select-choices repeat="role in allRoles | filter:$select.search">
+                            {{shorName(role)}}
+                        </ui-select-choices>
+                    </ui-select>
+
+                </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <div class="form-group">
+                <div class="col-sm-2 pull-right">
+                    <button class="btn btn-primary" ng-click="saveUser()" ng-disabled="form.$invalid || data.user.password2 != data.user.password || data.user.roles == null || data.user.roles.length == 0">
+                        <span class="glyphicon glyphicon-save"></span>创建
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

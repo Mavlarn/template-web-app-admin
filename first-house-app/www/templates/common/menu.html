@@ -1,0 +1,28 @@
+<ion-side-menus enable-menu-with-back-views="false">
+    <ion-side-menu-content>
+        <ion-nav-bar class="bar-peak">
+            <ion-nav-back-button>
+            </ion-nav-back-button>
+            <ion-nav-buttons side="left">
+                <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+                </button>
+            </ion-nav-buttons>
+        </ion-nav-bar>
+        <ion-nav-view name="menuContent"></ion-nav-view>
+    </ion-side-menu-content>
+    <ion-side-menu side="left" width="210">
+        <ion-content class="darkgray-bg">
+            <ion-list>
+                <ion-item menu-close ui-sref="account.setting" class="none-bg">
+                    <span class="ion-icon ion-person"></span> <i class="">我的</i>
+                </ion-item>
+                <ion-item menu-close ui-sref="home" class="none-bg">
+                    <span class="ion-icon ion-person"></span> <i class="">主页</i>
+                </ion-item>
+                <ion-item menu-close ui-sref="notification" class="none-bg">
+                    <span class="ion-icon ion-paper-airplane"></span> <i>通知</i>
+                </ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-side-menu>
+</ion-side-menus>

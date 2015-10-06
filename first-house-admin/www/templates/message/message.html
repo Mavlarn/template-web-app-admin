@@ -1,0 +1,52 @@
+<div class="row   border-bottom white-bg page-heading padding" >
+	<div class="col-lg-10">
+	 	<button class="btn btn-warning" ng-if="type=='FAMILY_MANAGER'" ui-sref="message.toManager({type:1})" ><i class="fa fa-reply"></i> 返回</button>	 
+	 	<button class="btn btn-warning" ng-if="type=='FAMILY_TEACHER'" ui-sref="message.toTeacher({type:2})"><i class="fa fa-reply"></i> 返回</button>	 
+	 	<button class="btn btn-warning" ng-if="type=='TEACHER_FAMILY'" ui-sref="message.toFamily({type:3})"><i class="fa fa-reply"></i> 返回</button>	 
+	</div>
+	<div class="col-lg-2"></div>
+</div>
+<div class='wrapper padding-top  animated fadeInRight'>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="ibox float-e-margins">
+
+                    <div class="ibox-content">
+
+                        <div>
+                            <div class="chat-activity-list">
+
+                                <div class="chat-element" ng-repeat='session in sessions' ng-class="{true:'right'}[session.fromUserId!=sessions[0].fromUserId]">
+                                    <a href="#"  ng-class="{true:'pull-right',false:'pull-left'}[session.fromUserId!=sessions[0].fromUserId]">
+                                        <img alt="image" class="img-circle" ng-src="{{storage_server + session.fromUserHeadImg + thumbSuffix}}" onerror="this.src='../img/defaultHead.jpg'">
+                                    </a>
+                                    <div class="media-body" ng-class="{true:'text-right'}[session.fromUserId!=sessions[0].fromUserId]">
+                                        <small class="pull-right text-navy">{{moment(session.createdDate).fromNow()}}</small>
+                                        <strong>{{users[session.fromUserId]}}</strong>
+                                        <blockquote class="m-b-xs">
+                                             {{session.content}}
+                                        </blockquote>
+                                        <small class="text-muted">{{session.createdDate| date:'yyyy-MM-dd hh:mm:ss'}}</small>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="chat-form" ng-if="isInRole('ROLE_MANAGER')">
+                            <form role="form">
+                                <div class="form-group">
+                                    <textarea class="form-control" placeholder="消息内容" ng-model="replyData.content"></textarea>
+                                </div>
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-sm btn-primary m-t-n-xs"
+                                            ng-click="replyMessage()">回复
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                	</div>
+                </div>
+            </div>
+        </div>
+
+</div>
