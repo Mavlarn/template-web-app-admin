@@ -34,16 +34,16 @@ public class User extends AbstractAuditingEntity {
 
     @JsonIgnore
     @NotNull
-    @Size(min = 60, max = 60) 
+    @Size(min = 60, max = 60)
     @Column(length = 60)
     private String password;
 
-    @Size(max = 50)
-    @Column(name = "name", length = 50)
+    @Size(max = 20)
+    @Column(name = "name", length = 20)
     private String name;
 
-    @Size(max = 50)
-    @Column(name = "real_name", length = 50)
+    @Size(max = 20)
+    @Column(name = "real_name", length = 20)
     private String realName;
 
     @Email

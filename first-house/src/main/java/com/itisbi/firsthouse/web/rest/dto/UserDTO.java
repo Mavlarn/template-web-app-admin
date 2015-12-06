@@ -21,22 +21,24 @@ public class UserDTO {
 
     @Pattern(regexp = "^[a-z0-9]*$")
     @NotNull
-    @Size(min = 1, max = 50)
+    @Size(min = 1, max = 20)
     private String login;
 
     @NotNull
     @Size(min = PASSWORD_MIN_LENGTH, max = PASSWORD_MAX_LENGTH)
     private String password;
 
-    @Size(max = 50)
+    @Size(max = 20)
     private String name;
 
-    @Size(max = 50)
+    @Size(max = 20)
     private String realName;
 
     @Email
     @Size(min = 5, max = 100)
     private String email;
+
+    private String mobile;
 
     private boolean activated = false;
 

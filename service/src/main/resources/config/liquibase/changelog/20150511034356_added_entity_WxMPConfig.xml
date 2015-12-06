@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <!--
+        Added the entity WeixinMenu.
+    -->
+    <changeSet id="20150511034356" author="mavlarn">
+        <createTable tableName="WX_MP_CONFIG">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="app_id" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="app_secret" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="company_id" type="bigint">
+            </column>
+            <column name="aes_key" type="varchar(255)" />
+            <column name="token" type="varchar(255)" />
+            <column name="created_date" type="timestamp" />
+            <column name="update_time" type="timestamp" />
+            <column name="created_by" type="varchar(50)" />
+            <column name="hello" type="varchar(255)" />
+            <column name="use_open_id" type="varchar(100)" />
+            <column name="access_token" type="varchar(255)" />
+            <column name="token_expires_time" type="bigint" />
+            <column name="default_service" type="boolean" />
+            <column name="oauth2_redirect_uri" type="varchar(255)" />
+        </createTable>
+
+        <createIndex indexName="idx_wx_mp_config_useopenid"
+                     tableName="WX_MP_CONFIG"
+                     unique="true">
+            <column name="use_open_id" type="varchar(100)"/>
+        </createIndex>
+
+    </changeSet>
+</databaseChangeLog>

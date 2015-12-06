@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <!--
+        Added the entity WxUser.
+    -->
+    <changeSet id="20150511034356" author="mavlarn">
+        <createTable tableName="WX_USER">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="open_id" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="use_open_id" type="varchar(50)"/>
+            <column name="use_service_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="nick_name" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="subscribe_date" type="timestamp" defaultValueDate="${now}">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country" type="varchar(20)" />
+            <column name="province" type="varchar(20)" />
+            <column name="city" type="varchar(20)" />
+            <column name="sex" type="varchar(10)"/>
+            <column name="bind_date" type="timestamp" />
+
+        </createTable>
+        <createIndex indexName="idx_wx_user_open_service_id"
+                     tableName="WX_USER"
+                     unique="true">
+            <column name="open_id" type="varchar(50)"/>
+            <column name="use_service_id" type="bigint"/>
+        </createIndex>
+
+    </changeSet>
+</databaseChangeLog>
