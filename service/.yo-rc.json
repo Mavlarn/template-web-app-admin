@@ -1,0 +1,24 @@
+{
+  "generator-jhipster": {
+    "baseName": "datatalk",
+    "packageName": "com.datatalk.xyztemp",
+    "packageFolder": "com/datatalk/xyztemp",
+    "authenticationType": "xauth",
+    "hibernateCache": "ehcache",
+    "clusteredHttpSession": "no",
+    "websocket": "no",
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "prodDatabaseType": "mysql",
+    "searchEngine": "no",
+    "useSass": true,
+    "buildTool": "maven",
+    "frontendBuilder": "gulp",
+    "enableTranslation": false,
+    "enableSocialSignIn": false,
+    "rememberMeKey": "262b1cc657f76ab31ea837f3aea6fa41ba3ac564",
+    "testFrameworks": [
+      "gatling"
+    ]
+  }
+}
