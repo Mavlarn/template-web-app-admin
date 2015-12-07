@@ -1,4 +1,4 @@
-package com.datatalk.xyztemp.domain;
+package com.datatalk.xyztemp.domain.type;
 
 /**
  * Class description.
