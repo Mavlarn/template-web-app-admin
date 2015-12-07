@@ -1,7 +1,7 @@
 
 angular.module('firstHouseAdmin', ['LocalStorageModule', 'ngMessages', 'ngResource', 'ui.router', 'ngCookies',
     'ngCacheBuster', 'ngSanitize', 'angularFileUpload', 'angular-loading-bar', 'ui.bootstrap', 'ui.select',
-    'ng.ueditor', 'smart-table', 'angular-lodash', 'Alertify', 'nvd3', 'Common', 'Common.utils', 'Common.Auth',
+    'ng.ueditor', 'smart-table', 'angular-lodash', 'Alertify', 'nvd3', 'Common', 'Common.utils', 'Common.Auth', 'codertyLoading',
     'Common.Admin', 'firstHouseAdmin.controllers', 'firstHouseAdmin.services'
 ])
 
