@@ -16,7 +16,6 @@
     "angular-locale_zh-cn": "*",
     "angular-messages": "1.4.5",
     "angular-ui-router": "0.2.15",
-    "jquery": "2.1.4",
     "json3": "3.3.2",
     "modernizr": "2.8.3",
     "ng-file-upload": "7.0.17",
@@ -35,7 +34,6 @@
     "moment": "~2.10.3",
     "angular-nvd3": "~1.0.2",
     "angular-ueditor": "*",
-    "bootstrap-css": "~3.3.4",
     "font-awesome": "~4.4.0"
   },
   "devDependencies": {

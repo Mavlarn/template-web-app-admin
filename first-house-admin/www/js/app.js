@@ -9,7 +9,7 @@ angular.module('firstHouseAdmin', ['LocalStorageModule', 'ngMessages', 'ngResour
 .constant('SYS_CONFIG', {
 
 })
-.run(function($state, $rootScope, Auth, Principal, ENV, VERSION) {
+.run(function($state, $rootScope, Auth, Principal, ENV, VERSION, $window) {
     $rootScope.ENV = ENV;
     $rootScope.VERSION = VERSION;
 
@@ -21,7 +21,7 @@ angular.module('firstHouseAdmin', ['LocalStorageModule', 'ngMessages', 'ngResour
             Auth.authorize();
         }
     });
-    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams, $window) {
+    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
         var titleKey = 'DataTalk';
 
         $rootScope.previousStateName = fromState.name;
