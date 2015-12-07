@@ -1,69 +1,74 @@
 package com.datatalk.xyztemp.domain;
 
-import com.datatalk.xyztemp.domain.type.SexType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.validator.constraints.Email;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.ZonedDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
- * A user.
+ * A Customer.
  */
 @Entity
-@Table(name = "jhi_user")
+@Table(name = "customer")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class User extends AbstractAuditingEntity {
+public class Customer extends BaseEntity {
 
-    @NotNull
     @Pattern(regexp = "^[a-z0-9]*$|(anonymousUser)")
     @Size(min = 1, max = 20)
     @Column(length = 20, unique = true, nullable = false)
     private String login;
 
     @JsonIgnore
-    @NotNull
     @Size(min = 60, max = 60)
     @Column(name = "password_hash",length = 60)
     private String password;
 
-    @Size(max = 20)
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "type")
+    private String type;
+
     @Column(name = "name", length = 20)
     private String name;
 
-    @Size(max = 20)
     @Column(name = "real_name", length = 20)
     private String realName;
 
-    @Email
-    @Size(max = 100)
-    @Column(length = 100, unique = true)
-    private String email;
+    @Column(name = "sex")
+    private Integer sex; // 1 is male, 2 is female
 
-    @Size(max = 15)
-    @Column(length = 15, unique = true)
+    @Column(name = "province")
+    private String province;
+
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "address")
+    private String address;
+
+    @NotNull
+    @Column(name = "mobile", length = 15)
     private String mobile;
 
-    @Column(name = "sex", length = 10)
-    @Enumerated(EnumType.STRING)
-    private SexType sex;
+    @Column(name = "email", length = 50)
+    private String email;
+
+    @Column(name = "created_date", nullable = false)
+    private ZonedDateTime createdDate;
 
     @Column(nullable = false)
     private boolean activated = false;
 
     @Column(nullable = false)
     private boolean deleted = false;
-
-    @Size(min = 2, max = 5)
-    @Column(name = "lang_key", length = 5)
-    private String langKey;
 
     @Size(max = 10)
     @Column(name = "activation_key", length = 10)
@@ -78,34 +83,19 @@ public class User extends AbstractAuditingEntity {
     private ZonedDateTime dynamicKeyDate;
 
     @Column(name = "head_img_url", length = 255)
+    @JsonIgnore
     private String headImgUrl;
 
-    @JsonIgnore
-    @ManyToMany
-    @JoinTable(
-        name = "jhi_user_authority",
-        joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
-        inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Authority> authorities = new HashSet<>();
-
     @Column(name = "open_id", length = 50)
+    @JsonIgnore
     private String openId;
 
-    // this is the id of WxMPConfig of the MP.
     @Column(name = "use_service_id")
+    @JsonIgnore
     private Long useServiceId;
 
-    @Column(name = "province", length = 20)
-    private String province;
-
-    @Column(name = "city", length = 20)
-    private String city;
-
-    @Column(name = "address", length = 100)
-    private String address;
-
     @Column(name = "bind_date")
+    @JsonIgnore
     private ZonedDateTime bindDate;
 
     public String getLogin() {
@@ -124,6 +114,22 @@ public class User extends AbstractAuditingEntity {
         this.password = password;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
     public String getName() {
         return name;
     }
@@ -140,12 +146,36 @@ public class User extends AbstractAuditingEntity {
         this.realName = realName;
     }
 
-    public String getEmail() {
-        return email;
+    public Integer getSex() {
+        return sex;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getMobile() {
@@ -156,7 +186,23 @@ public class User extends AbstractAuditingEntity {
         this.mobile = mobile;
     }
 
-    public boolean getActivated() {
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public ZonedDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(ZonedDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public boolean isActivated() {
         return activated;
     }
 
@@ -204,14 +250,6 @@ public class User extends AbstractAuditingEntity {
         this.headImgUrl = headImgUrl;
     }
 
-    public SexType getSex() {
-        return sex;
-    }
-
-    public void setSex(SexType sex) {
-        this.sex = sex;
-    }
-
     public String getOpenId() {
         return openId;
     }
@@ -228,30 +266,6 @@ public class User extends AbstractAuditingEntity {
         this.useServiceId = useServiceId;
     }
 
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public ZonedDateTime getBindDate() {
         return bindDate;
     }
@@ -260,33 +274,16 @@ public class User extends AbstractAuditingEntity {
         this.bindDate = bindDate;
     }
 
-    public String getLangKey() {
-        return langKey;
-    }
-
-    public void setLangKey(String langKey) {
-        this.langKey = langKey;
-    }
-
-    public Set<Authority> getAuthorities() {
-        return authorities;
-    }
-
-    public void setAuthorities(Set<Authority> authorities) {
-        this.authorities = authorities;
-    }
-
     @Override
     public String toString() {
-        return "User{" +
-            "id=" + id + '\''+
-            ", login='" + login + '\'' +
-            ", name='" + name + '\'' +
-            ", realName='" + realName + '\'' +
-            ", email='" + email + '\'' +
-            ", activated='" + activated + '\'' +
-            ", mobile='" + mobile + '\'' +
-            ", activationKey='" + activationKey + '\'' +
-            "}";
+        return "Customer{" +
+                "id=" + id +
+                ", login='" + login + "'" +
+                ", type='" + type + "'" +
+                ", name='" + name + "'" +
+                ", mobile='" + mobile + "'" +
+                ", description='" + description + "'" +
+                ", activated='" + activated + "'" +
+                '}';
     }
 }

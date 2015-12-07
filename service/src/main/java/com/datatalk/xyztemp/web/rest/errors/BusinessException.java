@@ -1,4 +1,4 @@
-package com.datatalk.xyztemp.exception;
+package com.datatalk.xyztemp.web.rest.errors;
 
 /**
  * Created by mavlarn on 15/11/17.

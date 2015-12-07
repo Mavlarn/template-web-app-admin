@@ -35,7 +35,7 @@
             <column name="mobile" type="varchar(15)">
                 <constraints unique="true"/>
             </column>
-            <column name="sex" type="int"/>
+            <column name="sex" type="varchar(10)"/>
             <column name="activated" type="boolean" valueBoolean="false">
                 <constraints nullable="false" />
             </column>

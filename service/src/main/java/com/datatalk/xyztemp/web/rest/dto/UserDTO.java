@@ -3,6 +3,7 @@ package com.datatalk.xyztemp.web.rest.dto;
 import com.datatalk.xyztemp.domain.Authority;
 import com.datatalk.xyztemp.domain.User;
 
+import com.datatalk.xyztemp.domain.type.SexType;
 import org.hibernate.validator.constraints.Email;
 
 import javax.validation.constraints.*;
@@ -40,7 +41,7 @@ public class UserDTO {
 
     private String mobile;
 
-    private Integer sex;
+    private SexType sex;
 
     private String headImgUrl;
 
@@ -107,7 +108,7 @@ public class UserDTO {
         return mobile;
     }
 
-    public Integer getSex() {
+    public SexType getSex() {
         return sex;
     }
 

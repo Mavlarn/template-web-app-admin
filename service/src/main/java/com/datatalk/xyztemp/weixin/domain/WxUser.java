@@ -8,7 +8,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.datatalk.xyztemp.domain.BaseEntity;
-import com.datatalk.xyztemp.domain.SexType;
+import com.datatalk.xyztemp.domain.type.SexType;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 

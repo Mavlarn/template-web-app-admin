@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+    <property name="now" value="sysdate" dbms="oracle"/>
+
+    <property name="autoIncrement" value="true" dbms="mysql,h2,postgresql"/>
+    <property name="autoIncrement" value="false" dbms="oracle"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle"/>
+
+    <!--
+        Added the entity Customer.
+    -->
+    <changeSet id="20151104150413" author="mavlarn">
+        <createTable tableName="customer">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}" >
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="login" type="varchar(20)">
+                <constraints unique="true" nullable="false"/>
+            </column>
+            <column name="password_hash" type="varchar(100)"/>
+            <column name="description" type="varchar(255)"/>
+            <column name="type" type="varchar(10)"/>
+            <column name="name" type="varchar(20)"/>
+            <column name="real_name" type="varchar(20)"/>
+            <column name="sex" type="varchar(10)"/>
+            <column name="province" type="varchar(10)"/>
+            <column name="city" type="varchar(10)"/>
+            <column name="address" type="varchar(100)"/>
+            <column name="mobile" type="varchar(15)">
+                <constraints unique="true"/>
+            </column>
+            <column name="email" type="varchar(50)"/>
+            <column name="created_date" type="timestamp" defaultValueDate="${now}">
+                <constraints nullable="false" />
+            </column>
+            <column name="activated" type="boolean" valueBoolean="false">
+                <constraints nullable="false" />
+            </column>
+            <column name="deleted" type="boolean" valueBoolean="false" defaultValue="false">
+                <constraints nullable="false" />
+            </column>
+            <column name="activation_key" type="varchar(20)"/>
+            <column name="dynamic_key" type="varchar(10)"/>
+            <column name="dynamic_key_date" type="timestamp"/>
+            <column name="head_img_url" type="varchar(255)"/>
+            <column name="open_id" type="varchar(50)" />
+            <column name="use_service_id" type="bigint" />
+            <column name="bind_date" type="timestamp"/>
+
+        </createTable>
+
+        <createIndex indexName="idx_t_customer_login"
+                     tableName="customer"
+                     unique="false">
+            <column name="login" type="varchar(20)"/>
+        </createIndex>
+        <createIndex indexName="idx_t_customer_mobile"
+                     tableName="customer"
+                     unique="false">
+            <column name="mobile" type="varchar(15)"/>
+        </createIndex>
+    </changeSet>
+</databaseChangeLog>

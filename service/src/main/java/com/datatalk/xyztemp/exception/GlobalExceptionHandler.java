@@ -1,5 +1,6 @@
 package com.datatalk.xyztemp.exception;
 
+import com.datatalk.xyztemp.web.rest.errors.BusinessException;
 import com.google.common.collect.Maps;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

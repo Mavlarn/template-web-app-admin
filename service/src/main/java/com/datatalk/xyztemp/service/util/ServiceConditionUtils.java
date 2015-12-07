@@ -1,7 +1,7 @@
 package com.datatalk.xyztemp.service.util;
 
 
-import com.datatalk.xyztemp.exception.BusinessException;
+import com.datatalk.xyztemp.web.rest.errors.BusinessException;
 
 /**
  * Created by mavlarn on 15/11/18.

@@ -9,5 +9,6 @@
     <include file="classpath:config/liquibase/changelog/20150511034356_added_entity_WxMPMessageTemplate.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20150511034356_added_entity_WxMenu.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20150511034356_added_entity_WxUser.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20151104150413_added_entity_Customer.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-005 - JHipster will add liquibase changelogs here -->
 </databaseChangeLog>
