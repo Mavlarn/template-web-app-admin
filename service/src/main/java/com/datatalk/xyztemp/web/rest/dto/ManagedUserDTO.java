@@ -11,7 +11,7 @@ public class ManagedUserDTO extends UserDTO {
 
     private ZonedDateTime createdDate;
 
-    private String lastModifiedBy;
+    private Long lastModifiedBy;
 
     private ZonedDateTime lastModifiedDate;
 
@@ -45,11 +45,11 @@ public class ManagedUserDTO extends UserDTO {
         this.createdDate = createdDate;
     }
 
-    public String getLastModifiedBy() {
+    public Long getLastModifiedBy() {
         return lastModifiedBy;
     }
 
-    public void setLastModifiedBy(String lastModifiedBy) {
+    public void setLastModifiedBy(Long lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
     }
 

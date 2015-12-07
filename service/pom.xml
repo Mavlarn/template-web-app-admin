@@ -646,11 +646,12 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-tomcat</artifactId>
                 </dependency>
-                <dependency>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-devtools</artifactId>
-                    <optional>true</optional>
-                </dependency>
+                <!-- It will restart server when I reload class. I use JRebel. -->
+                <!--<dependency>-->
+                    <!--<groupId>org.springframework.boot</groupId>-->
+                    <!--<artifactId>spring-boot-devtools</artifactId>-->
+                    <!--<optional>true</optional>-->
+                <!--</dependency>-->
             </dependencies>
         </profile>
         <profile>
@@ -664,11 +665,11 @@
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-starter-undertow</artifactId>
                 </dependency>
-                <dependency>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-devtools</artifactId>
-                    <optional>true</optional>
-                </dependency>
+                <!--<dependency>-->
+                    <!--<groupId>org.springframework.boot</groupId>-->
+                    <!--<artifactId>spring-boot-devtools</artifactId>-->
+                    <!--<optional>true</optional>-->
+                <!--</dependency>-->
             </dependencies>
             <build>
                 <plugins>

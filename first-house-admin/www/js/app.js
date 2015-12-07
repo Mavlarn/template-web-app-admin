@@ -21,18 +21,27 @@ angular.module('firstHouseAdmin', ['LocalStorageModule', 'ngMessages', 'ngResour
             Auth.authorize();
         }
     });
-    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
-        //            var titleKey = 'global.title';
+    $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams, $window) {
+        var titleKey = 'DataTalk';
 
         $rootScope.previousStateName = fromState.name;
         $rootScope.previousStateParams = fromParams;
 
         // Set the page title key to the one configured in state or use default one
         if (toState.data.pageTitle) {
-
+            titleKey = toState.data.pageTitle;
         }
-
+        $window.document.title = titleKey;
     });
+    
+    $rootScope.back = function() {
+        // If previous state is 'activate' or do not exist go to 'home'
+        if ($rootScope.previousStateName === 'login' || $state.get($rootScope.previousStateName) === null) {
+            $state.go('home');
+        } else {
+            $state.go($rootScope.previousStateName, $rootScope.previousStateParams);
+        }
+    };
 })
 .constant('datepickerConfig', {
     formatDay: 'dd',
@@ -87,6 +96,7 @@ angular.module('firstHouseAdmin', ['LocalStorageModule', 'ngMessages', 'ngResour
     uiSelectConfig.theme = 'bootstrap';
     $httpProvider.interceptors.push('authInterceptor');
     $httpProvider.interceptors.push('httpErrorHandler');
+    $httpProvider.interceptors.push('authExpiredInterceptor');
 
     $urlRouterProvider.otherwise('/dashboard');
     $stateProvider.state('site', {

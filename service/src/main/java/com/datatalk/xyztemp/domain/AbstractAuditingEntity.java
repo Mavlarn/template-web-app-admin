@@ -1,20 +1,18 @@
 package com.datatalk.xyztemp.domain;
 
-import java.io.Serializable;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.envers.Audited;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import java.time.ZonedDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
+import java.time.ZonedDateTime;
 
 /**
  * Base abstract class for entities which will hold definitions for created, last modified by and created,
@@ -25,11 +23,11 @@ import javax.validation.constraints.NotNull;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class AbstractAuditingEntity extends BaseEntity {
 
-    @CreatedBy
+//    @CreatedBy
     @NotNull
-    @Column(name = "created_by", nullable = false, length = 50, updatable = false)
+    @Column(name = "created_by", nullable = false, updatable = false)
     @JsonIgnore
-    private String createdBy;
+    private Long createdBy;
 
     @CreatedDate
     @NotNull
@@ -37,21 +35,21 @@ public abstract class AbstractAuditingEntity extends BaseEntity {
     @JsonIgnore
     private ZonedDateTime createdDate = ZonedDateTime.now();
 
-    @LastModifiedBy
-    @Column(name = "last_modified_by", length = 50)
+//    @LastModifiedBy
+    @Column(name = "last_modified_by")
     @JsonIgnore
-    private String lastModifiedBy;
+    private Long lastModifiedBy;
 
     @LastModifiedDate
     @Column(name = "last_modified_date")
     @JsonIgnore
     private ZonedDateTime lastModifiedDate = ZonedDateTime.now();
 
-    public String getCreatedBy() {
+    public Long getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(Long createdBy) {
         this.createdBy = createdBy;
     }
 
@@ -63,11 +61,11 @@ public abstract class AbstractAuditingEntity extends BaseEntity {
         this.createdDate = createdDate;
     }
 
-    public String getLastModifiedBy() {
+    public Long getLastModifiedBy() {
         return lastModifiedBy;
     }
 
-    public void setLastModifiedBy(String lastModifiedBy) {
+    public void setLastModifiedBy(Long lastModifiedBy) {
         this.lastModifiedBy = lastModifiedBy;
     }
 

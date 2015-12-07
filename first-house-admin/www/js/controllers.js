@@ -8,16 +8,6 @@ angular.module('firstHouseAdmin.controllers', ['firstHouseAdmin'])
         $rootScope.isInRole = Principal.isInRole;
         $rootScope.$state = $state;
 
-        $rootScope.goback = function() {
-            $log.debug('$rootScope.goback()');
-            // If previous state is 'activate' or do not exist go to 'home'
-            if ($rootScope.previousStateName === 'activate' || $state.get($rootScope.previousStateName) === null) {
-                $state.go('home');
-            } else {
-                $state.go($rootScope.previousStateName, $rootScope.previousStateParams);
-            }
-        };
-
     })
     .config(['$logProvider', function($logProvider) {
         $logProvider.debugEnabled(true);

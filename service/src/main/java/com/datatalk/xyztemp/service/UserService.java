@@ -97,6 +97,7 @@ public class UserService {
         newUser.setActivationKey(generateUniqueKey());
         authorities.add(authority);
         newUser.setAuthorities(authorities);
+        newUser.setCreatedBy(SecurityUtils.getCurrentUserId());
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
@@ -169,7 +170,7 @@ public class UserService {
             userWithKey = userRepository.findOneByActivationKey(activationKey);
             retry++;
         }
-        Preconditions.checkState(userWithKey.isPresent(), "Generated activation key 3 times and duplicated.");
+        Preconditions.checkState(!userWithKey.isPresent(), "Generated activation key 3 times and duplicated.");
         return activationKey;
     }
 

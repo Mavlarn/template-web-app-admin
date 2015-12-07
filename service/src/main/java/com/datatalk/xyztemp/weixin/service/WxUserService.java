@@ -79,7 +79,7 @@ public class WxUserService {
         // TODO:
 //        user.setSex(wxUser.getSex());
         LOG.debug("wxMpUser.getSex(): {}", wxMpUser.getSex());
-        user.setLastModifiedBy(user.getLogin());
+        user.setLastModifiedBy(user.getId());
         user.setLastModifiedDate(ZonedDateTime.now());
         // user will be saved in download function.
         downloadAndSaveWeixinHeadPic(user, wxMpUser.getHeadImgUrl());

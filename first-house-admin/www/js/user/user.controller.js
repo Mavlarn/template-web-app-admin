@@ -27,7 +27,12 @@ function UserFormController($scope, $state, $stateParams, Alertify, UserService,
     $scope.data = {
         user: UserDataHolder.getCurrent()
     };
-
+    $scope.isNew = $scope.data.user == null || $scope.data.user.login == null;
+    $scope.saveUser = function() {
+        UserService.save($scope.data.user, function() {
+            $scope.$state.go('user.list');
+        })
+    }
 }
 angular.module('firstHouseAdmin')
     .controller('UserFormController', UserFormController)
