@@ -1,10 +1,9 @@
 package com.datatalk.xyztemp.weixin.service;
 
-import com.codahale.metrics.annotation.Timed;
 import com.datatalk.xyztemp.domain.User;
 import com.datatalk.xyztemp.repository.UserRepository;
 import com.datatalk.xyztemp.service.UserService;
-import com.datatalk.xyztemp.web.rest.dto.UserDTO;
+import com.datatalk.xyztemp.service.util.ServiceConditionUtils;
 import com.datatalk.xyztemp.weixin.domain.WxUser;
 import com.datatalk.xyztemp.weixin.repository.WxUserRepository;
 import com.datatalk.xyztemp.weixin.web.rest.ActivateDTO;
@@ -20,7 +19,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import javax.inject.Inject;
 import java.io.File;
@@ -28,6 +26,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.time.ZonedDateTime;
+import java.util.Optional;
 
 /**
  * Class description.
@@ -62,10 +61,11 @@ public class WxUserService {
     @Transactional
     public User activateUser(ActivateDTO activateDTO, WxMpUser wxMpUser) {
         User user = userRepository.findOneByActivationKey(activateDTO.getActivationKey()).get();
-        Preconditions.checkNotNull(user, "授权码无效");
-        Preconditions.checkState(!user.getActivated(), "该用户已被绑定");
-//        Preconditions.checkState(!user.isDeleted(), "用户已经被停止使用!");
-        Preconditions.checkState(activateDTO.getRealName().equals(user.getRealName()), "绑定的用户名称与授权码不符");
+        ServiceConditionUtils.checkState(user != null, "授权码无效");
+        // TODO: for test, we can bind multiple times.
+//        ServiceConditionUtils.checkState(!user.getActivated(), "该用户已被绑定");
+        ServiceConditionUtils.checkState(!user.isDeleted(), "用户已经被停止使用!");
+        ServiceConditionUtils.checkState(activateDTO.getRealName().equals(user.getRealName()), "绑定的用户名称与授权码不符");
 
         user.getAuthorities().size(); // get roles eagerly, will be used later.
         user.setActivated(true);
@@ -131,23 +131,18 @@ public class WxUserService {
     }
 
     @Transactional(readOnly = true)
-    public User getWxUser(String wxUserOpenId, Long serviceId) {
+    public Optional<User> getWxUser(Long serviceId, String wxUserOpenId) {
         return userRepository.findOneByUseServiceIdAndOpenId(serviceId, wxUserOpenId)
             .map(user -> {
                 user.getAuthorities().size();
                 return user;
-            }).orElseGet(() -> null);
+            });
     }
 
     private WxMpUser getWxMpUser(Long serviceId, String openId) throws WxErrorException {
         WxMpService wxMpService = wxConfiguration.getWxService(serviceId);
         String lang = "zh_CN"; //语言
         return wxMpService.userInfo(openId, lang);
-    }
-
-    @Timed
-    public UserDTO getWxUserWithDetail(User user) {
-        throw new NotImplementedException();
     }
 
     private void downloadAndSaveWeixinHeadPic(User user, String headImgUrl) {
@@ -162,9 +157,9 @@ public class WxUserService {
             File userPicFile = new File(subDir, fileName);
             FileUtils.copyURLToFile(url, userPicFile);
 
-//            String qiniuPath = userPicFile.getAbsolutePath().substring(savePath.length() + 1);
+            String imagePath = userPicFile.getAbsolutePath().substring(savePath.length() + 1);
 //            qiniuService.uploadFile(userPicFile, qiniuPath);
-//            user.setHeadImgUrl(qiniuPath);
+            user.setHeadImgUrl(imagePath);
             userRepository.save(user);
 
         } catch (MalformedURLException e) {

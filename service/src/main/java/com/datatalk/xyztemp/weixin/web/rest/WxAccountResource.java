@@ -1,15 +1,12 @@
 package com.datatalk.xyztemp.weixin.web.rest;
 
-import java.util.Map;
-
-import javax.inject.Inject;
-
 import com.codahale.metrics.annotation.Timed;
 import com.datatalk.xyztemp.domain.User;
 import com.datatalk.xyztemp.security.WeixinUsernamePasswordAuthenticationToken;
 import com.datatalk.xyztemp.security.xauth.Token;
 import com.datatalk.xyztemp.security.xauth.TokenProvider;
 import com.datatalk.xyztemp.service.UserService;
+import com.datatalk.xyztemp.web.rest.dto.ManagedUserDTO;
 import com.datatalk.xyztemp.web.rest.dto.UserDTO;
 import com.datatalk.xyztemp.weixin.service.WxConfiguration;
 import com.datatalk.xyztemp.weixin.service.WxUserService;
@@ -26,12 +23,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import org.springframework.web.bind.annotation.*;
+
+import javax.inject.Inject;
+import java.util.Map;
 
 /**
  * Class description.
@@ -57,7 +52,6 @@ public class WxAccountResource {
     private TokenProvider tokenProvider;
 
     /**
-     *
      * @param code 是微信返回的用户的code
      * @param serviceId 是服务号所对应的Id
      */
@@ -72,17 +66,17 @@ public class WxAccountResource {
         WxMpService wxMpService = wxConfiguration.getWxService(serviceId);
         try {
             WxMpOAuth2AccessToken accessToken = wxMpService.oauth2getAccessToken(code);
-            User user = wxUserService.getWxUser(accessToken.getOpenId(), serviceId);
-            if (user == null) {
-                // this weixin user has not activated with binding.
-                return authErrorResult(accessToken.getOpenId(), "用户不存在");
-            } else if (user.isDeleted()) {
-                return authErrorResult(accessToken.getOpenId(), "用户已经被删除");
-            } else {
-                UserDTO userDetailDto = wxUserService.getWxUserWithDetail(user);
-                LOG.debug("Got weixin user:{}", userDetailDto);
-                return authSuccessResult(userDetailDto, user, accessToken.getOpenId());
-            }
+            return wxUserService.getWxUser(serviceId, accessToken.getOpenId())
+                .map(user -> {
+                    if (user.isDeleted()) {
+                        return authErrorResult(accessToken.getOpenId(), "用户已经被删除");
+                    } else {
+                        ManagedUserDTO userDetailDto = new ManagedUserDTO(user);
+                        LOG.debug("Got weixin user:{}", userDetailDto);
+                        return authSuccessResult(userDetailDto, user, accessToken.getOpenId());
+                    }
+                })
+                .orElseGet(() -> authErrorResult(accessToken.getOpenId(), "用户不存在"));
         } catch (WxErrorException wxe) {
             LOG.error("Weixin error:" + wxe.getMessage(), wxe);
             return authErrorResult(null, "微信错误!");
@@ -131,9 +125,8 @@ public class WxAccountResource {
         LOG.debug("Activate user:{}", activateDTO);
         WxMpUser wxUser = getWxMpUser(activateDTO.getServiceId(), activateDTO.getOpenId());
         User user = wxUserService.activateUser(activateDTO, wxUser);
-        UserDTO userDTO = null;
-        throw new NotImplementedException();
-//        return authSuccessResult(userDTO, user, activateDTO.getOpenId());
+        ManagedUserDTO userDTO = new ManagedUserDTO(user);
+        return authSuccessResult(userDTO, user, activateDTO.getOpenId());
     }
 
     private WxMpUser getWxMpUser(Long serviceId, String openId) throws WxErrorException {
